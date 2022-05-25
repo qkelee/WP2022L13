@@ -27,13 +27,23 @@ input.cbutton {
 </style>
 <script type=text/javascript>
 	function init() {
+		isGameOn = false;
 		for (let i=0; i<1000; i++) move((Math.floor(Math.random()*size*size)));
+		isGameOn = true;
 	}
 	function move(n) {
 		if (n>size-1) tryMove(n, n-size);
 		if (n%size!=0)  tryMove(n, n-1);
 		if (n%size!=(size-1))  tryMove(n, n+1);
 		if (n<size*(size-1))  tryMove(n, n+size);
+		if (!isGameOn) return;
+
+		let m = size*size-1;
+		let i;
+		for (i=0; i<m; i++) {
+			if (document.getElementById("cell" + i).value!=(i+1)) break;
+		}
+		if (i==m) GameOver();
 	}
 	function tryMove(from, to) {
 		let s = document.getElementById("cell"+from);
@@ -44,6 +54,8 @@ input.cbutton {
 		}
 	}
 	function GameOver(size) {
+		isGameOn = false;
+		document.getElementById("message").innerHTML += " Solved!!";
 	}
 	function drawBoard(size) {
 		let str = "";
