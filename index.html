@@ -30,8 +30,18 @@ input.cbutton {
 		for (let i=0; i<1000; i++) move((Math.floor(Math.random()*size*size)));
 	}
 	function move(n) {
+		if (n>size-1) tryMove(n, n-size);
+		if (n%size!=0)  tryMove(n, n-1);
+		if (n%size!=(size-1))  tryMove(n, n+1);
+		if (n<size*(size-1))  tryMove(n, n+size);
 	}
 	function tryMove(from, to) {
+		let s = document.getElementById("cell"+from);
+		let d = document.getElementById("cell"+to);
+		if (d.value==" ") {
+			d.value = s.value;
+			s.value = " ";
+		}
 	}
 	function GameOver(size) {
 	}
