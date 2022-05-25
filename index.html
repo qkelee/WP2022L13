@@ -29,6 +29,7 @@ input.cbutton {
 	function init() {
 		isGameOn = false;
 		for (let i=0; i<1000; i++) move((Math.floor(Math.random()*size*size)));
+		document.getElementById("message").innerHTML = "0";
 		isGameOn = true;
 	}
 	function move(n) {
@@ -38,6 +39,8 @@ input.cbutton {
 		if (n<size*(size-1))  tryMove(n, n+size);
 		if (!isGameOn) return;
 
+		let cc = parseInt(document.getElementById("message").innerHTML);
+		document.getElementById("message").innerHTML = cc+1;
 		let m = size*size-1;
 		let i;
 		for (i=0; i<m; i++) {
