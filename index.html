@@ -3,86 +3,9 @@
 <head>
 	<meta Content-Type:text/html; charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<style type=text/css>
-input {
-	margin: 0 5px 0 0;
-	width: 42px;
-	height: 42px;
-	text-align: center;
-}
-button {
-	margin: 0 5px 0 0;
-	width: 42px;
-	height: 42px;
-}
-input.cbutton {
-	margin: 5px 5px 0 0 ;
-	width: 50px;
-	height: 50px;
-	background: #fff;
-	border:1px solid #aaa;
-	font-size:12pt;
-	text-align:center;
-}
-</style>
-<script type=text/javascript>
-	function init() {
-		isGameOn = false;
-		for (let i=0; i<1000; i++) move((Math.floor(Math.random()*size*size)));
-		document.getElementById("message").innerHTML = "0";
-		isGameOn = true;
-	}
-	function move(n) {
-		if (n>size-1) tryMove(n, n-size);
-		if (n%size!=0)  tryMove(n, n-1);
-		if (n%size!=(size-1))  tryMove(n, n+1);
-		if (n<size*(size-1))  tryMove(n, n+size);
-		if (!isGameOn) return;
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="app.js"></script>
 
-		let cc = parseInt(document.getElementById("message").innerHTML);
-		document.getElementById("message").innerHTML = cc+1;
-		let m = size*size-1;
-		let i;
-		for (i=0; i<m; i++) {
-			if (document.getElementById("cell" + i).value!=(i+1)) break;
-		}
-		if (i==m) GameOver();
-	}
-	function tryMove(from, to) {
-		let s = document.getElementById("cell"+from);
-		let d = document.getElementById("cell"+to);
-		if (d.value==" ") {
-			d.value = s.value;
-			s.value = " ";
-		}
-	}
-	function GameOver(size) {
-		isGameOn = false;
-		document.getElementById("message").innerHTML += " Solved!!";
-	}
-	function drawBoard(size) {
-		let str = "";
-		for(let i=0; i<size; i++) {
-			for (let j=0; j<size; j++) {
-				const id = i*size+j;
-				const val = id+1
-				str += "<input type=button id='cell" + id + "' ";
-				str += "class='cbutton' ";
-				str += "value='" + (val<size*size ? val : " ") + "' ";
-				str += "onclick='move(" + id + ");'>";
-			}
-			str += "<br/>";
-		}
-		document.getElementById("board").innerHTML = str;
-	}
-	function setSize(_size) {
-		size = parseInt(_size);
-		drawBoard(size);
-		init();
-	}
-	function solve() {
-	}
-</script>
 </head>
 <body onload="init();">
 	<input type="text" value="4" id="boardSize">
